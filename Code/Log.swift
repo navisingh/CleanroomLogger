@@ -96,6 +96,11 @@ public struct Log
 
     /** The `LogChannel` that can be used to perform logging at the `.Debug`
     log severity level. Will be `nil` if the `Log` has not been enabled with
+    a minimum severity of `.User` or greater. */
+    public static var user: LogChannel? { return _user }
+
+    /** The `LogChannel` that can be used to perform logging at the `.Debug`
+    log severity level. Will be `nil` if the `Log` has not been enabled with
     a minimum severity of `.Debug` or greater. */
     public static var debug: LogChannel? { return _debug }
 
@@ -196,6 +201,9 @@ public struct Log
     :param:     warningChannel The `LogChannel` to use for logging messages with
                 a `severity` of `.Warning`.
 
+    :param:     userChannel The `LogChannel` to use for logging messages with
+                a `severity` of `.User`.
+
     :param:     infoChannel The `LogChannel` to use for logging messages with
                 a `severity` of `.Info`.
 
@@ -205,11 +213,12 @@ public struct Log
     :param:     verboseChannel The `LogChannel` to use for logging messages with
                 a `severity` of `.Verbose`.
     */
-    public static func enable(errorChannel errorChannel: LogChannel?, warningChannel: LogChannel?, infoChannel: LogChannel?, debugChannel: LogChannel?, verboseChannel: LogChannel?)
+    public static func enable(errorChannel errorChannel: LogChannel?, warningChannel: LogChannel?, userChannel: LogChannel?,infoChannel: LogChannel?, debugChannel: LogChannel?, verboseChannel: LogChannel?)
     {
         dispatch_once(&enableOnce) {
             self._error = errorChannel
             self._warning = warningChannel
+            self._user = userChannel
             self._info = infoChannel
             self._debug = debugChannel
             self._verbose = verboseChannel
@@ -218,6 +227,7 @@ public struct Log
 
     private static var _error: LogChannel?
     private static var _warning: LogChannel?
+    private static var _user: LogChannel?
     private static var _info: LogChannel?
     private static var _debug: LogChannel?
     private static var _verbose: LogChannel?
@@ -240,6 +250,7 @@ public struct Log
         switch severity {
         case .Verbose:  return _verbose
         case .Debug:    return _debug
+        case .User:    return _user
         case .Info:     return _info
         case .Warning:  return _warning
         case .Error:    return _error
