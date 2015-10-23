@@ -179,6 +179,7 @@ public struct Log
         enable(
             errorChannel: self.createLogChannelWithSeverity(.Error, receptacle: receptacle, minimumSeverity: minimumSeverity),
             warningChannel: self.createLogChannelWithSeverity(.Warning, receptacle: receptacle, minimumSeverity: minimumSeverity),
+            userChannel: self.createLogChannelWithSeverity(.User, receptacle: receptacle, minimumSeverity: minimumSeverity),
             infoChannel: self.createLogChannelWithSeverity(.Info, receptacle: receptacle, minimumSeverity: minimumSeverity),
             debugChannel: self.createLogChannelWithSeverity(.Debug, receptacle: receptacle, minimumSeverity: minimumSeverity),
             verboseChannel: self.createLogChannelWithSeverity(.Verbose, receptacle: receptacle, minimumSeverity: minimumSeverity)
